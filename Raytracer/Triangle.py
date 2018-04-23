@@ -25,3 +25,6 @@ class Triangle(object):
 
     def normalAt(self, p):
         return self.u.cross(self.v).normalized()
+
+    def colorAt(self, ray):
+        return (255, 0, 0)

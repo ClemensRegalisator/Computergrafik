@@ -23,7 +23,13 @@ class Vector(object):
         return Vector(self.x - other.x, self.y - other.y, self.z - other.z)
 
     def __mul__(self, other):
-        return Vector(other * self.x, other * self.y, other * self.z)
+        if type(other) == int or type(other) == float:
+            return Vector(other * self.x, other * self.y, other * self.z)
+        if type(other) == vector:
+            return Vector(self.x * other.x, self.y * other.y, self.z * other.z)
+        else:
+            print("Für " + typeof(other) + " nicht definiert")
+            return None
 
     def dot(self, other):
         skalar = self.x * other.x + self.y * other.y + self.z * other.z

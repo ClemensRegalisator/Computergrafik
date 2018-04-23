@@ -22,3 +22,6 @@ class Sphere(object):
 
     def normalAt(self, p):
         return (p - self.center).normalized()
+
+    def colorAt(self, ray):
+        return (0, 255, 0)
