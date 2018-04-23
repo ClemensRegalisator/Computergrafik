@@ -18,7 +18,6 @@ fieldOfView = math.pi / 4    #öffnungswinkel
 aspectRatio = 1
 height = 2 * math.tan(fieldOfView / 2)
 width = aspectRatio * height
-
 imageHeight = 400
 imageWidth = 400
 

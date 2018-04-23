@@ -17,3 +17,6 @@ class Plane(object):
 
     def normalAt(self, p):
         return self.normal
+
+    def colorAt(self, ray):
+        return (0, 0, 255)
