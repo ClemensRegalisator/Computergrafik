@@ -30,16 +30,19 @@ class Vector(object):
         return(skalar)
 
     def cross(self, other):
-        return numpy.cross(self, other)
+        one = [self.x, self.y, self.z]
+        two = [other.x, other.y, other.z]
+        new = numpy.cross(one, two)
+        return Vector(new[0], new[1], new[2])
 
     def length(self):
         return math.sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
 
     def normalized(self):
-        return self / self.length
+        return self / self.length()
 
     def __truediv__(self, other):
-        return(self.x / other, self.y / other, self.z / other)
+        return Vector(self.x / other, self.y / other, self.z / other)
 
 
 class Point(object):
@@ -49,7 +52,11 @@ class Point(object):
         self.z = z
 
     def __sub__(self, other):
-        return Vector(self.x - other.x, self.y - other.y, self.z - other.z)
+        if type(other) == Point:
+            return Vector(self.x - other.x, self.y - other.y, self.z - other.z)
+        else:
+            print("Kein Punkt!")
+            raise Exception
 
     def __add__(self, other):
         if type(other) == Vector:

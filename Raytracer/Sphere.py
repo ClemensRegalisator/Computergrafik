@@ -6,6 +6,11 @@ class Sphere(object):
         self.radius = radius #scalar
 
 
+
+
+
+
+
     def intersectionParameter(self,ray):
         co = self.center - ray.origin
         v = co.dot(ray.direction)

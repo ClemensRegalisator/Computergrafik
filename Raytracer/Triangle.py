@@ -4,7 +4,7 @@ class Triangle(object):
         self.b = b
         self.c = c
         self.u = self.b - self.a    #2 Richtungsvektoren
-        self.v = self.c - self-a
+        self.v = self.c - self.a
 
     def __repr__(self):
         return 'Triangle(%s, %s, %s)' %(repr(self.a), repr(self.b), repr(self.c))

@@ -1,6 +1,6 @@
 class Plane(object):
     def __init__(self, point, normal):
-        self.point = center #point
+        self.point = point #point
         self.normal = normal.normalized() #vector
 
     def __repr__(self):
