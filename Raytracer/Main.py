@@ -14,21 +14,25 @@ wRes = 5
 hRes = 5
 BACKGROUND_COLOR = (0, 0, 0) #konstante für hintergrundfarbe
 
-fieldOfView = math.pi / 8     #öffnungswinkel
-aspectRatio = 16/9
-imageHeight = int(2 * math.tan(fieldOfView / 2))
-imageWidth = int(aspectRatio * imageHeight)
-pixelWidth = imageWidth / (wRes - 1)
-pixelHeight = imageHeight / (hRes - 1)
+fieldOfView = math.pi / 4    #öffnungswinkel
+aspectRatio = 1
+height = 2 * math.tan(fieldOfView / 2)
+width = aspectRatio * height
+
+imageHeight = 400
+imageWidth = 400
+
 
 
 img = Image.new('RGB', (imageWidth, imageHeight), BACKGROUND_COLOR)
 
     #objekte
-kugel = Sphere(Point(0, 180, 100), 100)
-dreieck = Triangle(Point(100, 100, 10), Point(200, 200, 10), Point(300, 100, 10))
-ebene = Plane(Point(17, 23, 20), Vector(2, 9, 3))
-objectlist = [kugel]    #liste der objekte auf die gestrahlt wird
+s1 = Sphere(Point(-1, 1.5, 3), 1)
+s2 = Sphere(Point(-1, -1.5, 3), 1)
+s3 = Sphere(Point(1.5, 0, 3), 1)
+t1 = Triangle(Point(-1, 1.5, 3), Point(-1, 1.5, 3), Point(1.5, 0, 3))
+e1 = Plane(Point(-3, 0, 0), Vector(1, 0, 0))
+objectlist = [s1, s2, s3]    #liste der objekte auf die gestrahlt wird
 
     #kamera
 e = Point(0, 1.8, 10)   #augenposition
@@ -43,19 +47,20 @@ s = fxup / fxup.length()
 u = s.cross(f)
 
 
-
-
-def calcRay(x,y):  #berechnet einen Strahl aus Bildschirmkoordinaten
+def calcRay(x,y):      #berechnet einen Strahl aus Bildschirmkoordinaten
+    pixelWidth = width / (wRes - 1)
+    pixelHeight = height / (hRes - 1)
     xcomp = s * (x * pixelWidth - width / 2)
     ycomp = u * (x * pixelHeight - height / 2)
     ray = Ray(e, f + xcomp + ycomp)
     return ray
 
+
 for x in range(imageWidth):
     for y in range(imageHeight):
-        ray = calcRay(x,y) #noch zu implementieren
+        ray = calcRay(x, y)              #noch zu implementieren
         maxdist = float('inf')
-        color = BACKGROUND_COLOR #noch erstellen
+        color = BACKGROUND_COLOR            #noch erstellen
         for object in objectlist:
             hitdist = object.intersectionParameter(ray)
             if hitdist:
