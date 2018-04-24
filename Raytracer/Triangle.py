@@ -1,10 +1,11 @@
 class Triangle(object):
-    def __init__(self, a, b, c):
+    def __init__(self, a, b, c, color):
         self.a = a         #3 Punkte
         self.b = b
         self.c = c
         self.u = self.b - self.a    #2 Richtungsvektoren
         self.v = self.c - self.a
+        self.color = color
 
     def __repr__(self):
         return 'Triangle(%s, %s, %s)' %(repr(self.a), repr(self.b), repr(self.c))
@@ -27,4 +28,4 @@ class Triangle(object):
         return self.u.cross(self.v).normalized()
 
     def colorAt(self, ray):
-        return (255, 0, 0)
+        return self.color

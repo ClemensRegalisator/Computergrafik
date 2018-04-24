@@ -2,9 +2,13 @@ import math
 
 
 class Sphere(object):
-    def __init__(self, center, radius):
+    def __init__(self, center, radius, color):
         self.center = center     #point
         self.radius = radius     #scalar
+        self.color = color
+
+    def __repr(self):
+        return "".join("Sphere(" + str(self.center) + ", " + str(self.radius) + ")")
 
     def intersectionParameter(self, ray):
         co = self.center - ray.origin
@@ -13,10 +17,10 @@ class Sphere(object):
         if discriminant < 0:
             return None
         else:
-            return v-math.sqrt(discriminant)
+            return v - math.sqrt(discriminant)
 
     def normalAt(self, p):
         return (p - self.center).normalized()
 
     def colorAt(self, ray):
-        return (0, 255, 0)
+        return self.color

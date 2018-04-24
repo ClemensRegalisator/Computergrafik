@@ -1,7 +1,8 @@
 class Plane(object):
-    def __init__(self, point, normal):
+    def __init__(self, point, normal, color):
         self.point = point #point
         self.normal = normal.normalized() #vector
+        self.color = color
 
     def __repr__(self):
         return 'Plane(%s,%s)' %(repr(self.point), repr(self.normal))
@@ -19,4 +20,4 @@ class Plane(object):
         return self.normal
 
     def colorAt(self, ray):
-        return (0, 0, 255)
+        return self.color

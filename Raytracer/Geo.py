@@ -25,7 +25,7 @@ class Vector(object):
     def __mul__(self, other):
         if type(other) == int or type(other) == float:
             return Vector(other * self.x, other * self.y, other * self.z)
-        if type(other) == vector:
+        if type(other) == Vector:
             return Vector(self.x * other.x, self.y * other.y, self.z * other.z)
         else:
             print("Für " + typeof(other) + " nicht definiert")
@@ -72,3 +72,11 @@ class Point(object):
 
     def __repr__(self):
         return "".join("P(" + str(self.x) + ", " + str(self.y) + ", " + str(self.z) + ")")
+
+
+
+
+if __name__ == "__main__":
+    v1 = Vector(12, 5, 11)
+    v2 = Vector(33, 6, 1)
+    print(v1 - v2)
