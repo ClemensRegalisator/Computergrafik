@@ -9,8 +9,8 @@ import math
 
 #initialisierung
     #bild
-imageHeight = 1080
-imageWidth = 1920
+imageHeight = 400
+imageWidth = 400
 wRes = 5
 hRes = 5
 BACKGROUND_COLOR = (0, 0, 0) #konstante für hintergrundfarbe
@@ -29,8 +29,8 @@ s1 = Sphere(Point(40, 0, -3), 2, (0, 255, 0))
 s2 = Sphere(Point(40, 3, 0), 2, (255, 0, 0))
 s3 = Sphere(Point(40, -3, 0), 2, (0, 0, 255))
 t1 = Triangle(Point(40, 3, 0), Point(40, -3, 0), Point(40, 0, -3), (128, 128, 0))
-e1 = Plane(Point(0, 0, 0), Vector(0, 0, 1), (0, 128, 128))
-objectlist = [s1, s2, s3, t1]            #liste der objekte auf die gestrahlt wird
+e1 = Plane(Point(41, 0, 0), Vector(100, 0, 10), (0, 128, 128))
+objectlist = [s1, s2, s3, t1, e1]            #liste der objekte auf die gestrahlt wird
 
     #kamera
 e = Point(0, 0, 0)   #augenposition
