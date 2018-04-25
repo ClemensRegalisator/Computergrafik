@@ -23,13 +23,16 @@ class Vector(object):
         return Vector(self.x - other.x, self.y - other.y, self.z - other.z)
 
     def __mul__(self, other):
-        if type(other) == int or type(other) == float:
-            return Vector(other * self.x, other * self.y, other * self.z)
         if type(other) == Vector:
             return Vector(self.x * other.x, self.y * other.y, self.z * other.z)
         else:
-            print("Für " + typeof(other) + " nicht definiert")
-            return None
+            return Vector(other * self.x, other * self.y, other * self.z)
+
+    def __rmul__(self, other):
+        if type(other) == Vector:
+            return Vector(self.x * other.x, self.y * other.y, self.z * other.z)
+        else:
+            return Vector(other * self.x, other * self.y, other * self.z)
 
     def dot(self, other):
         skalar = self.x * other.x + self.y * other.y + self.z * other.z
@@ -70,13 +73,14 @@ class Point(object):
         else:
             return "Error"
 
+    def __radd__(self, other):
+        if type(other) == Vector:
+            return Point(self.x + other.x, self.y + other.y, self.z + other.z)
+        else:
+            return "Error"
+
     def __repr__(self):
         return "".join("P(" + str(self.x) + ", " + str(self.y) + ", " + str(self.z) + ")")
 
 
 
-
-if __name__ == "__main__":
-    v1 = Vector(12, 5, 11)
-    v2 = Vector(33, 6, 1)
-    print(v1 - v2)
