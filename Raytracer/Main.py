@@ -65,7 +65,7 @@ def calcRay(x,y):      #berechnet einen Strahl aus Bildschirmkoordinaten
     ray = Ray(e, (f + xcomp) + ycomp)
     return ray
 
-def phong(schnittpunkt, ray):
+def phong(schnittpunkt, ray, object):
     ka = 0.4
     kd = 0.4
     ks = 0.4
@@ -73,15 +73,15 @@ def phong(schnittpunkt, ray):
     n = (e - schnittpunkt).normalized()
     lr = (lv.cross(n)).normalized()
     d = ray.direction.normalized()
+    #cin2 = Vector(object.colorAt(ray)[0], object.colorAt(ray)[1], object.colorAt(ray)[2])
+    cout = ca * ka + cin * kd * lv.dot(n) + cin * ks * lr.dot(d) * n
 
-    cout = (ca * ka) + (cin * kd) + lv.dot(n) + (cin * ks) * (lr.dot(d * (-1)) * n)
-    rgb = (cout.x, cout.y. cout.z)
+    rgb = (int(cout.x), int(cout.y), int(cout.z))
     for ele in rgb:
         if ele < 0:
             ele = 0
         if ele > 255:
             ele = 255
-
 
     return rgb
 
@@ -103,7 +103,7 @@ def cheese():
                         if schatten(schnittpunkt):
                             color = SCHATTIG
                         else:
-                            color = phong(schnittpunkt, ray)
+                            color = phong(schnittpunkt, ray, object)
             img.putpixel((imageWidth - 1 - x, imageHeight - 1 - y), color)
         if x % progress == 0:
             print("Fortschritt: " + str((x / imageWidth) * 100) + "%")
