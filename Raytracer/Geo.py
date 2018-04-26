@@ -53,6 +53,11 @@ class Vector(object):
     def __truediv__(self, other):
         return Vector(self.x / other, self.y / other, self.z / other)
 
+    def __iter__(self):
+        yield self.x
+        yield self.y
+        yield self.z
+
 
 class Point(object):
     def __init__(self, x, y, z):

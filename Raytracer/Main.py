@@ -27,12 +27,12 @@ pixelHeight = height / (imageHeight - 1)
 img = Image.new('RGB', (imageWidth, imageHeight), BACKGROUND_COLOR)
 
     #objekte
-s1 = Sphere(Point(40, 0, 3), 2, (0, 255, 0))
-s2 = Sphere(Point(40, 3, 0), 2, (255, 0, 0))
-s3 = Sphere(Point(40, -3, 0), 2, (0, 0, 255))
-t1 = Triangle(Point(40, 3, 0), Point(40, -3, 0), Point(40, 0, -3), (128, 128, 0))
+s1 = Sphere(Point(40, 0, 1), 2, (0, 255, 0))
+s2 = Sphere(Point(40, 3, -2), 2, (255, 0, 0))
+s3 = Sphere(Point(40, -3, -2), 2, (0, 0, 255))
+t1 = Triangle(Point(40, 3, -2), Point(40, -3, -2), Point(40, 0, 1), (255, 255, 0))
 e1 = Plane(Point(0, 0, -7), Vector(0, 0, 1), (0, 128, 128))
-objectlist = [s1, s2, s3, e1]            #liste der objekte auf die gestrahlt wird
+objectlist = [e1, s1, s2, s3]            #liste der objekte auf die gestrahlt wird
 
     #kamera
 e = Point(0, 0, 0)   #augenposition
@@ -47,7 +47,7 @@ u = s.cross(f)
 
 #lichtfarben
 ca = Vector(205, 149, 12)
-cin = Vector(200, 100, 30)
+
 
 
 def schatten(punkt):
@@ -65,25 +65,25 @@ def calcRay(x,y):      #berechnet einen Strahl aus Bildschirmkoordinaten
     ray = Ray(e, (f + xcomp) + ycomp)
     return ray
 
+
+
 def phong(schnittpunkt, ray, object):
-    ka = 0.4
-    kd = 0.4
-    ks = 0.4
+    ka = 0.3
+    kd = 0.6
+    ks = 0.3
+
     lv = (lightsource - schnittpunkt).normalized()
-    n = (e - schnittpunkt).normalized()
+    n = (object.normalAt(schnittpunkt)).normalized()
     lr = (lv.cross(n)).normalized()
     d = ray.direction.normalized()
-    #cin2 = Vector(object.colorAt(ray)[0], object.colorAt(ray)[1], object.colorAt(ray)[2])
-    cout = ca * ka + cin * kd * lv.dot(n) + cin * ks * lr.dot(d) * n
+    cin = Vector(object.colorAt(ray)[0], object.colorAt(ray)[1], object.colorAt(ray)[2])
+    amb = ca * ka
+    dif = cin * (kd * lv.dot(n))
+    spek = cin * (ks * (lr.dot(d * (-1)) ** 2))
+    rgb = amb + dif + spek
+    return (int(rgb.x), int(rgb.y), int(rgb.z))
 
-    rgb = (int(cout.x), int(cout.y), int(cout.z))
-    for ele in rgb:
-        if ele < 0:
-            ele = 0
-        if ele > 255:
-            ele = 255
 
-    return rgb
 
 
 
@@ -107,8 +107,20 @@ def cheese():
             img.putpixel((imageWidth - 1 - x, imageHeight - 1 - y), color)
         if x % progress == 0:
             print("Fortschritt: " + str((x / imageWidth) * 100) + "%")
+'''
+def intersect(level, ray, maxlevel):
+    return 0
 
 
+def traceRay(level, ray):
+    hitpointData = intersect(level, ray, maxlevel)
+
+def shade(level, hitpointData,ray, object):
+    directColor = phong(hitpointData, ray, object)
+
+    reflectedRay = computeReflectedRay(hitpointData)
+    reflectColor = traceRay(level+1, reflectedRay)
+'''
 a = time.time()
 cheese()
 print(time.time() - a)
