@@ -8,6 +8,8 @@ from PIL import Image
 import math
 import time
 
+MAX_LEVEL = 3
+REFLECTION = 0.3
 #initialisierung
     #bild
 imageHeight = 400
@@ -103,24 +105,38 @@ def cheese():
                         if schatten(schnittpunkt):
                             color = SCHATTIG
                         else:
-                            color = phong(schnittpunkt, ray, object)
+                            color = traceRay(0, ray, object)
             img.putpixel((imageWidth - 1 - x, imageHeight - 1 - y), color)
         if x % progress == 0:
             print("Fortschritt: " + str((x / imageWidth) * 100) + "%")
-'''
-def intersect(level, ray, maxlevel):
-    return 0
+
+def intersect(ray):
+    maxdist = float('inf')
+    for object in objectlist:
+        hitdist = object.intersectionParameter(ray)
+        if hitdist:
+            if 0 < hitdist < maxdist:
+                maxdist = hitdist
+    return ray.origin + ray.direction * maxdist
 
 
-def traceRay(level, ray):
-    hitpointData = intersect(level, ray, maxlevel)
+def computeReflectedRay(ray, hitpointData, object):
+    n = object.normalAt(hitpointData)
+    newRay = (ray.direction - 2 * n.dot(ray.direction) * n)
+    return Ray(hitpointData, newRay)
+
+
+
+def traceRay(level, ray, object):
+    hitpointData = intersect(ray)
+    if(hitpointData):
+        return shade(level, hitpointData, ray, object)
 
 def shade(level, hitpointData,ray, object):
     directColor = phong(hitpointData, ray, object)
-
-    reflectedRay = computeReflectedRay(hitpointData)
-    reflectColor = traceRay(level+1, reflectedRay)
-'''
+    reflectedRay = computeReflectedRay(ray, hitpointData, object)
+    reflectColor = traceRay(level+1, reflectedRay, object)
+    return directColor + REFLECTION * reflectColor
 a = time.time()
 cheese()
 print(time.time() - a)
