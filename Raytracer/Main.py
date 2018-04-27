@@ -38,7 +38,7 @@ objectlist = [e1, s1, s2, s3]            #liste der objekte auf die gestrahlt wi
 e = Point(0, 0, 0)   #augenposition
 c = Point(20, 0, 0)      #augenblickrichtung
 up = Vector(0, 0, 1)    #upvektor
-lightsource = Point(0, 0, 10)        #Lichtquelle
+lightsource = Point(0, 0, 20)        #Lichtquelle
 ce = c - e              #wird zur berechnung von f benötigt
 f = ce / ce.length()
 fxup = f.cross(up)
@@ -46,7 +46,7 @@ s = fxup / fxup.length()
 u = s.cross(f)
 
 #lichtfarben
-ca = Vector(205, 149, 12)
+ca = Vector(50, 50,50)
 
 
 
@@ -100,10 +100,10 @@ def cheese():
                     if 0 < hitdist < maxdist:
                         maxdist = hitdist
                         schnittpunkt = ray.origin + ray.direction * hitdist
+                        color = phong(schnittpunkt, ray, object)
                         if schatten(schnittpunkt):
-                            color = SCHATTIG
-                        else:
-                            color = phong(schnittpunkt, ray, object)
+                            color = (int(color[0] / 1.7), int(color[1] / 1.7), int(color[2] / 1.7))
+
             img.putpixel((imageWidth - 1 - x, imageHeight - 1 - y), color)
         if x % progress == 0:
             print("Fortschritt: " + str((x / imageWidth) * 100) + "%")
