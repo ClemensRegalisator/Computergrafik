@@ -3,10 +3,10 @@
 __author__ = "Clemens Klein"
 
 
-from Raytracer.Ray import Ray
-from Raytracer.Plane import *
-from Raytracer.Triangle import Triangle
-from Raytracer.Sphere import Sphere
+from Ray import Ray
+from Plane import *
+from Triangle import Triangle
+from Sphere import Sphere
 from PIL import Image
 import math
 import time

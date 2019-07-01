@@ -1,4 +1,4 @@
-from Raytracer.Geo import *
+from Geo import *
 import random
 class Plane(object):
     def __init__(self, point, normal, color, checker: bool, random:bool):
@@ -37,4 +37,3 @@ class Plane(object):
                 return self.otherColor
             return self.baseColor
         return self.color
-
